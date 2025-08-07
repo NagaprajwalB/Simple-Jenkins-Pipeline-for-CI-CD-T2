@@ -19,7 +19,7 @@ pipeline {
                 // Add test commands here, e.g. npm test, mvn test, etc.
             }
         }
-
+        
         stage('Docker Build & Push') {
             steps {
                 script {
