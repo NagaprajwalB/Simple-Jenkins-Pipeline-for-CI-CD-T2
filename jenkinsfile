@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'prajjub/node-app:latest'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the app...'
+                // Add build commands, e.g. npm build, mvn package, etc.
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add test commands here, e.g. npm test, mvn test, etc.
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.build(DOCKER_IMAGE)
+                    docker.withRegistry('', 'e78d9793-9318-46fb-93cd-7f2608e28c99') {
+                        docker.image(DOCKER_IMAGE).push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the app...'
+                // Add your deployment commands here, e.g., docker run or kubectl commands
+            }
+        }
+    }
+}
