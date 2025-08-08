@@ -1,15 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'  // This image has node + npm
-            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Give access to Docker
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/NagaprajwalB/task2.git'
+                git url: 'https://github.com/NagaprajwalB/task2.git', branch: 'main'
             }
         }
 
@@ -37,7 +32,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 echo 'Running Docker container...'
-                sh 'docker run -d -p 3000:3000 nodejs-demo-app'
+                sh 'docker run -d -p 3000:3000 --name nodejs-app nodejs-demo-app'
             }
         }
     }
