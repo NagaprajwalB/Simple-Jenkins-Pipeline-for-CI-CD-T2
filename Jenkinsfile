@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Gowdamohan2/DevOps-test-day2.git'
+                git branch: 'main', url: 'https://github.com/NagaprajwalB/task2.git'
             }
         }
 
