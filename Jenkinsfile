@@ -1,18 +1,15 @@
 pipeline {
-  agent {
-    docker {
-        image 'docker:latest'
-        args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
-}
-    environment {
-        DOCKER_IMAGE = 'nodejs-demo-app'
+    agent {
+        docker {
+            image 'node:18'  // This image has node + npm
+            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Give access to Docker
+        }
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/NagaprajwalB/task2.git'
+                git 'https://github.com/NagaprajwalB/task2.git'
             }
         }
 
@@ -26,29 +23,26 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'npm test || echo "No test script defined"'
+                sh 'npm test'
             }
         }
 
         stage('Docker Build') {
             steps {
                 echo 'Building Docker image...'
-                sh "docker build -t $DOCKER_IMAGE ."
+                sh 'docker build -t nodejs-demo-app .'
             }
         }
 
         stage('Docker Run') {
             steps {
                 echo 'Running Docker container...'
-                sh "docker run -d -p 3000:3000 $DOCKER_IMAGE"
+                sh 'docker run -d -p 3000:3000 nodejs-demo-app'
             }
         }
     }
 
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
         failure {
             echo 'Pipeline failed.'
         }
