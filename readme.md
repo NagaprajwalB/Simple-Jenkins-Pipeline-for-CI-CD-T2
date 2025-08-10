@@ -20,20 +20,20 @@ The Jenkins pipeline is defined in the ```Jenkinsfile``` located in the project 
 3. **Deploy** - Deploy the build Docker image to the target environment.
 
 ## Setup Instructions 
-1. Install Jenkins
+1. **Install Jenkins**
    * Install Jenkins locally or use a cloud-hosted Jenkins instance.
    * Ensure Jenkins has access to Docker on the build agents or server.
-2. Add Jenkinsfile to Project Repo
+2. **Add Jenkinsfile to Project Repo**
    * The Jenkinsfile in this repo contains the pipeline script with build, test, and deploy stages.
    * This file defines all the steps Jenkins will execute automatically.
-3. Configure Jenkins Job
+3. **Configure Jenkins Job**
    * Create a new pipeline job in Jenkins.
    * Connect it to your project repository (e.g., GitHub).
 
    * Point the job to use the Jenkinsfile from the repository.
 
    * Configure Jenkins to trigger the pipeline on each code commit (e.g., using GitHub webhooks or SCM polling).
-4. Run and Test the Pipeline
+4. **Run and Test the Pipeline**
    * Make changes to your application code and push to the repository.
 
    * Jenkins will automatically trigger the pipeline.
